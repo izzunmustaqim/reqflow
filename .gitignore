@@ -1,0 +1,42 @@
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+/.fleet
+/.idea
+/.vscode
+
+# TypeScript build
+*.js.map
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Debug pages
+/debug_error.html
+/error_page.html
+
+# Database
+database/database.sqlite
+
+# Storage (sessions, compiled views, cache)
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/framework/cache/*
+!/storage/framework/cache/.gitkeep
+!/storage/framework/sessions/.gitkeep

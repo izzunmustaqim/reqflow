@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(php -v)",
+      "Bash(composer -V)",
+      "Bash(npm -v)",
+      "Bash(docker *)",
+      "Bash(docker-compose ps *)",
+      "Bash(docker-compose *)",
+      "Read(//usr/libexec/docker/**)",
+      "Read(//usr/local/lib/docker/**)",
+      "Read(//home/izzun/.docker/**)",
+      "Bash(mkdir -p ~/.docker/cli-plugins/)",
+      "Bash(curl -SL \"https://github.com/docker/compose/releases/latest/download/docker-compose-linux-$\\(uname -m\\)\" -o ~/.docker/cli-plugins/docker-compose)",
+      "Bash(chmod +x ~/.docker/cli-plugins/docker-compose)",
+      "Bash(sudo docker compose up -d --build)"
+    ]
+  }
+}

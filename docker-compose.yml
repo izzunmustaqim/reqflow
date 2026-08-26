@@ -1,0 +1,79 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sample_mgmt_app
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    environment:
+      - APP_KEY=${APP_KEY:-base64:3WxgIGf2Jez8WOxPRzBcZahbqadiaJDYU4eRvxhHUQU=}
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - DB_CONNECTION=pgsql
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=sample_mgmt
+      - DB_USERNAME=sample_user
+      - DB_PASSWORD=${DB_PASSWORD:-secret_password_change_me}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - QUEUE_CONNECTION=redis
+      - SESSION_DRIVER=redis
+      - CACHE_DRIVER=redis
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - app_storage:/var/www/html/storage/app/public
+      - ./.env:/var/www/html/.env
+    networks:
+      - sample_mgmt_network
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: sample_mgmt_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: sample_mgmt
+      POSTGRES_USER: sample_user
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret_password_change_me}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sample_user -d sample_mgmt"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - sample_mgmt_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: sample_mgmt_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - sample_mgmt_network
+
+volumes:
+  postgres_data:
+  redis_data:
+  app_storage:
+
+networks:
+  sample_mgmt_network:
+    driver: bridge
