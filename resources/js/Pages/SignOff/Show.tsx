@@ -1,11 +1,11 @@
 import React, { useRef, useState, useCallback } from 'react';
 import { useForm, Link } from '@inertiajs/react';
-import Layout from '@/Components/Layout';
-import { Card, CardContent, CardHeader, CardTitle } from '@/Components/ui/card';
-import { Button } from '@/Components/ui/button';
-import { Input } from '@/Components/ui/input';
-import { Alert, AlertTitle, AlertDescription } from '@/Components/ui/alert';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
+import Layout from '@/components/Layout';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { type SignOffShowProps } from '@/types';
 import { formatDate } from '@/lib/utils';
 import { Pen, Camera, CheckCircle } from 'lucide-react';

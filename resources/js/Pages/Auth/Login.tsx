@@ -1,8 +1,8 @@
 import { useForm, Head } from '@inertiajs/react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/Components/ui/card';
-import { Input } from '@/Components/ui/input';
-import { Button } from '@/Components/ui/button';
-import { Alert, AlertDescription } from '@/Components/ui/alert';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 export default function Login() {
     const { data, setData, post, processing, errors } = useForm({

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useForm, Link } from '@inertiajs/react';
-import Layout from '@/Components/Layout';
-import { Card, CardContent, CardHeader, CardTitle } from '@/Components/ui/card';
-import { Button } from '@/Components/ui/button';
-import { Textarea } from '@/Components/ui/textarea';
-import { Badge } from '@/Components/ui/badge';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
-import { Alert, AlertTitle, AlertDescription } from '@/Components/ui/alert';
+import Layout from '@/components/Layout';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { Badge } from '@/components/ui/badge';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { type ApprovalShowProps } from '@/types';
 import { statusColor, formatDate } from '@/lib/utils';
-import { useToast } from '@/Components/ui/toast';
+import { useToast } from '@/components/ui/toast';
 import { CheckCircle, XCircle } from 'lucide-react';
 
 export default function ApprovalShow({ sampleRequest: req }: ApprovalShowProps) {

@@ -38,6 +38,9 @@ php artisan migrate:fresh --seed   # Reset DB with seed data
 php artisan test                          # Run all tests
 php artisan test --filter=TestClassName   # Run single test class
 php artisan test --filter=testMethodName # Run single test method
+
+# shadcn/ui
+npx shadcn@latest add <component>   # Add a new UI component
 ```
 
 ## Architecture
@@ -85,7 +88,9 @@ React pages live in `resources/js/Pages/` mirroring route groups:
 - `SignOff/` — mobile-optimized customer sign-off with canvas signature
 - `Admin/` — compliance trail and export
 
-Shared layout in `resources/js/Components/Layout.tsx`. shadcn/ui primitives in `resources/js/Components/ui/`.
+Shared layout in `resources/js/components/Layout.tsx`. shadcn/ui primitives in `resources/js/components/ui/`.
+
+shadcn/ui is initialized via `components.json` at project root. To add a new component: `npx shadcn@latest add <component>`. Theme colors use CSS variables defined in `resources/css/app.css`.
 
 ### Database Key Tables
 

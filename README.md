@@ -57,6 +57,14 @@ npm run build        # tsc + vite build (production)
 php artisan serve    # Laravel dev server
 ```
 
+### Adding shadcn/ui Components
+
+```bash
+npx shadcn@latest add avatar
+npx shadcn@latest add dropdown-menu
+npx shadcn@latest add skeleton
+```
+
 ## Testing
 
 PHPUnit with SQLite in-memory (configured in `phpunit.xml`).
@@ -75,7 +83,7 @@ app/Http/Middleware/      → RoleMiddleware, HandleInertiaRequests
 app/Models/              → Eloquent models with relationships
 app/Services/            → AuditService, InventoryService
 resources/js/Pages/      → React pages (Inertia), mirrors route groups
-resources/js/Components/ → Layout.tsx + shadcn/ui primitives (ui/)
+resources/js/components/ → Layout.tsx + shadcn/ui primitives (ui/)
 database/migrations/     → Full schema (11 migrations)
 database/seeders/        → Realistic sample data (3 users, 8 products, 15 requests)
 docker/                  → nginx.conf + supervisord.conf

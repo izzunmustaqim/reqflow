@@ -3,15 +3,12 @@ import '../css/app.css';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
-import type { ComponentType } from 'react';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Sample Management';
 
-const pages = import.meta.glob('./Pages/**/*.tsx');
-
 createInertiaApp({
     title: (title) => title ? `${title} - ${appName}` : appName,
-    resolve: (name) => resolvePageComponent(`./Pages/${name}.tsx`, pages),
+    resolve: (name) => resolvePageComponent(`./Pages/${name}.tsx`, import.meta.glob('./Pages/**/*.tsx')) as Promise<any>,
     setup({ el, App, props }) {
         const root = createRoot(el!);
         root.render(<App {...props} />);
