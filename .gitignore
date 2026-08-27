@@ -8,6 +8,7 @@
 .env.backup
 .env.production
 .env.docker
+.env.testing
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
@@ -41,3 +42,14 @@ database/database.sqlite
 /storage/framework/cache/*
 !/storage/framework/cache/.gitkeep
 !/storage/framework/sessions/.gitkeep
+
+# IDE / AI tooling
+.claude/settings.local.json
+
+# PHP
+.php-cs-fixer.cache
+
+# Misc
+*.swp
+*.swo
+*~

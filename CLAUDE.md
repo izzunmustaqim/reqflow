@@ -8,15 +8,16 @@ Enterprise sample management system for Fresubin pharmaceutical nutrition produc
 
 ## Tech Stack
 
-- **Backend**: Laravel 11, PHP 8.3, PostgreSQL 16, Redis 7
-- **Frontend**: React 19, TypeScript, Inertia.js, Tailwind CSS v4, shadcn/ui components
-- **Auth**: Laravel Sanctum with role-based middleware (sales_rep, manager, admin)
-- **Package extras**: Ziggy (Laravel routes in JS), Spatie Query Builder
+- **Backend**: Laravel 13, PHP 8.3+, PostgreSQL 16, Redis 7
+- **Frontend**: React 19, TypeScript 7, Inertia.js 3, Tailwind CSS v4, shadcn/ui
+- **Auth**: Custom `LoginController` with role-based middleware (sales_rep, manager, admin)
+- **Package extras**: Ziggy (Laravel routes in JS), Spatie Query Builder 7, Zod 4
 
 ## Common Commands
 
 ```bash
 # Docker (primary dev environment)
+cp .env.example .env.docker   # Docker-specific env
 docker compose up -d --build
 # Note: .env is mounted as a volume. If you generate a key, you may need to clear the config cache:
 docker compose exec app php artisan key:generate
@@ -45,8 +46,8 @@ php artisan test --filter=testMethodName # Run single test method
 
 ```
 Draft → Submitted → Pending Approval → Approved → Dispatched → Signed → Closed
-                                                                    ↗
-                                          Rejected (terminal)
+                                          ↘
+                                        Rejected (terminal)
 ```
 
 Status is an enum on `sample_requests.status`. Each transition is gated by role middleware and logged via `AuditService`.
@@ -100,4 +101,4 @@ Shared layout in `resources/js/Components/Layout.tsx`. shadcn/ui primitives in `
 
 ## Testing
 
-PHPUnit configured with SQLite in-memory, array cache/session, sync queue. Test directory has `Unit` and `Feature` suites but currently only contains `TestCase.php` base class.
+PHPUnit configured with SQLite in-memory, array cache/session, sync queue. Test directory has `Unit` and `Feature` suites with a shared `TestCase.php` base class.

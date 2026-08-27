@@ -1,29 +1,32 @@
 # Sample Management System
 
-Enterprise Sample Management System for Fresubin products built with Laravel 11, Inertia.js, React, TypeScript, and shadcn/ui.
+Enterprise Sample Management System for Fresubin pharmaceutical nutrition products. Tracks sample requests from creation through approval, dispatch, and customer sign-off with full audit trail for compliance.
 
 ## Tech Stack
-- **Backend**: Laravel 11 + PHP 8.3
-- **Frontend**: React 19 + TypeScript + Inertia.js
-- **UI**: shadcn/ui components + Tailwind CSS v4
-- **Database**: PostgreSQL 16
-- **Cache/Queue**: Redis 7
-- **Containerization**: Docker (multi-stage build)
+
+- **Backend**: Laravel 13, PHP 8.3+, PostgreSQL 16, Redis 7
+- **Frontend**: React 19, TypeScript 7, Inertia.js 3, Tailwind CSS v4, shadcn/ui
+- **Auth**: Custom `LoginController` with role-based middleware (sales_rep, manager, admin)
+- **Extras**: Ziggy (Laravel routes in JS), Spatie Query Builder 7, Zod 4
+- **Containerization**: Docker multi-stage build (Node → Composer → PHP-FPM + Nginx)
 
 ## Quick Start (Docker)
+
 ```bash
-cp .env.example .env
-# Generate APP_KEY after container is running, or set it in .env
+cp .env.example .env.docker   # Docker-specific env (or use .env)
 docker compose up -d --build
 docker compose exec app php artisan key:generate
 docker compose exec app php artisan config:clear
 docker compose exec app php artisan migrate --seed
 docker compose exec app php artisan storage:link
 ```
+
 Access: http://localhost:8000
 
 ## Authentication & Login Credentials
+
 Authentication is handled via a custom `LoginController` and `Auth/Login.tsx` React component.
+
 | Role | Email | Password |
 |------|-------|----------|
 | Sales Rep | aminah@samplehub.com | password |
@@ -31,6 +34,13 @@ Authentication is handled via a custom `LoginController` and `Auth/Login.tsx` Re
 | Admin | admin@samplehub.com | password |
 
 ## Workflow
+
+```
+Draft → Submitted → Pending Approval → Approved → Dispatched → Signed → Closed
+                                          ↘
+                                        Rejected (terminal)
+```
+
 1. **Sales Rep** creates a Draft sample request with Fresubin SKUs
 2. **Sales Rep** submits → status becomes "Pending Approval"
 3. **Manager** reviews, approves or rejects with comments
@@ -39,20 +49,35 @@ Authentication is handled via a custom `LoginController` and `Auth/Login.tsx` Re
 6. **Admin** views full compliance trail and exports CSV
 
 ## Development
+
 ```bash
 npm install
-npm run dev  # Vite dev server
-php artisan serve  # Laravel dev server
+npm run dev          # Vite dev server with HMR
+npm run build        # tsc + vite build (production)
+php artisan serve    # Laravel dev server
 ```
 
-## Structure
+## Testing
+
+PHPUnit with SQLite in-memory (configured in `phpunit.xml`).
+
+```bash
+php artisan test                          # Run all tests
+php artisan test --filter=TestClassName   # Run single test class
+php artisan test --filter=testMethodName  # Run single test method
 ```
-app/Http/Controllers/    → Inertia controllers
+
+## Project Structure
+
+```
+app/Http/Controllers/    → Inertia controllers (per route group)
+app/Http/Middleware/      → RoleMiddleware, HandleInertiaRequests
 app/Models/              → Eloquent models with relationships
 app/Services/            → AuditService, InventoryService
-resources/js/Pages/      → React pages (Inertia)
-resources/js/Components/ → Layout + shadcn/ui primitives
-database/migrations/     → Full schema
-database/seeders/        → Realistic sample data
-docker/                  → Nginx + Supervisor configs
+resources/js/Pages/      → React pages (Inertia), mirrors route groups
+resources/js/Components/ → Layout.tsx + shadcn/ui primitives (ui/)
+database/migrations/     → Full schema (11 migrations)
+database/seeders/        → Realistic sample data (3 users, 8 products, 15 requests)
+docker/                  → nginx.conf + supervisord.conf
+tests/                   → Unit + Feature suites (PHPUnit, SQLite in-memory)
 ```
