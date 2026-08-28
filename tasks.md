@@ -27,6 +27,33 @@
 
 _None._
 
+## To Do — CRUD (Core Missing Features)
+
+### Sample Requests
+- [ ] Edit request — update customer_site, purpose, delivery_location, remarks while in Draft
+- [ ] Edit line items — add/remove/edit products and quantities while in Draft
+- [ ] Delete request — soft delete Draft requests only
+
+### Users (Admin only)
+- [ ] User list page — table with name, email, role, created date
+- [ ] Create user — form with name, email, password, role select
+- [ ] Edit user — update name, email, role
+- [ ] Delete user — soft delete, prevent self-deletion
+- [ ] Reset user password — admin can set new password
+
+### Products (Admin only)
+- [ ] Product list page — table with sku, name, storage, active status
+- [ ] Create product — form with sku, name, description, storage_requirement
+- [ ] Edit product — update details, toggle is_active
+- [ ] Delete product — soft delete, prevent if linked to requests
+
+### Inventory Batches (Admin only)
+- [ ] Batch list page — table with batch_no, product, expiry, on_hand, reserved, status
+- [ ] Create batch — form with product select, batch_no, expiry, quantity, location
+- [ ] Edit batch — adjust on_hand count, update location
+- [ ] Delete batch — soft delete, prevent if has active reservations
+- [ ] Bulk import — CSV upload for batch data
+
 ## To Do — UI Improvements
 
 - [ ] Add `Avatar` shadcn component — replace manual initial-letter divs
